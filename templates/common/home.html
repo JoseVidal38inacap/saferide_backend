@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>SafeRide · Plataforma de monitoreo de viajes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- CDN de Bootstrap (suficiente para la evaluación) -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <style>
+        body {
+            background: radial-gradient(circle at top, #0f172a 0, #020617 50%, #020617 100%);
+            color: #e5e7eb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .hero {
+            padding: 4rem 1.5rem;
+        }
+        .card {
+            background-color: rgba(15, 23, 42, 0.9);
+            border: 1px solid #1f2937;
+        }
+        .badge-tag {
+            background-color: #22c55e;
+            color: #022c22;
+            font-weight: 600;
+        }
+        footer {
+            margin-top: auto;
+            padding: 1rem 0;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">SafeRide · Backend</span>
+        <span class="badge bg-success">Entorno de desarrollo</span>
+    </div>
+</nav>
+
+<main class="container hero">
+    <div class="row mb-4">
+        <div class="col-lg-7">
+            <h1 class="display-5 fw-bold mb-3">Plataforma SafeRide</h1>
+            <p class="lead">
+                Backend basado en <strong>Django REST Framework</strong> para monitoreo de viajes
+                tipo transporte seguro (SafeRide). Incluye modelos de pasajeros, conductores,
+                vehículos, viajes y pagos; documentación OpenAPI y arquitectura basada en
+                microservicios.
+            </p>
+            <div class="mb-3">
+                <span class="badge badge-tag me-2">API REST</span>
+                <span class="badge bg-info text-dark me-2">HTTPS / Certificado digital</span>
+                <span class="badge bg-warning text-dark">Kafka · Microservicios</span>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Accesos rápidos</h5>
+                    <div class="list-group">
+                        <a href="/api/docs/" class="list-group-item list-group-item-action">
+                            📘 Documentación API (Swagger)
+                        </a>
+                        <a href="/admin/" class="list-group-item list-group-item-action">
+                            🔐 Panel de administración Django
+                        </a>
+                        <a href="/api/" class="list-group-item list-group-item-action">
+                            🧩 API Root Django REST
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Microservicios SafeRide</h5>
+                    <p class="card-text">
+                        La arquitectura separa responsabilidades en servicios independientes
+                        con endpoints de <strong>health check</strong> y métricas básicas.
+                    </p>
+                    <ul class="list-unstyled small">
+                        <li>✅ <code>route-service</code> · puerto 8001</li>
+                        <li>✅ <code>notifier-service</code> · puerto 8002</li>
+                        <li>✅ <code>billing-service</code> · puerto 8003</li>
+                    </ul>
+                    <p class="small mb-0">
+                        Ejemplo de health: <code>http://localhost:8001/health</code>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Seguridad y HTTPS</h5>
+                    <p class="card-text">
+                        El servidor se expone mediante <strong>HTTPS</strong> en el puerto 8443
+                        usando un certificado digital generado para <code>localhost</code>.
+                    </p>
+                    <ul class="small">
+                        <li>🔒 Certificado: <code>certs/saferide.crt</code></li>
+                        <li>🗝️ Llave privada: <code>certs/saferide.key</code></li>
+                        <li>📜 HSTS, cookies seguras, políticas de cabeceras</li>
+                    </ul>
+                    <p class="small mb-0">
+                        URL de ejemplo: <code>https://localhost:8443/api/docs/</code>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Modelo de datos</h5>
+                    <p class="card-text">
+                        El diseño incluye relaciones entre <strong>Pasajero</strong>,
+                        <strong>Conductor</strong>, <strong>Vehículo</strong>, <strong>Viaje</strong>
+                        y <strong>Pago</strong>, registradas en el MER y expuestas como endpoints
+                        RESTful.
+                    </p>
+                    <ul class="small">
+                        <li>🧍‍♂️ <code>/api/passengers/</code></li>
+                        <li>🚗 <code>/api/drivers/</code> y <code>/api/vehicles/</code></li>
+                        <li>🧭 <code>/api/trips/</code></li>
+                        <li>💳 <code>/api/payments/</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="text-center">
+    SafeRide · Backend de evaluación · {{ request.user.username|default:"usuario anónimo" }}
+</footer>
+
+</body>
+</html>
